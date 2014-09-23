@@ -3,18 +3,33 @@
 <head>
   <meta charset="utf-8">
   <meta http-equiv="X-UA-Compatible" content="IE=edge,chrome=1">
-  <title>Welcome to OpenShift</title>
+  <link rel="stylesheet" href="https://maxcdn.bootstrapcdn.com/bootstrap/3.2.0/css/bootstrap.min.css" />
+  <link rel="stylesheet" href="https://maxcdn.bootstrapcdn.com/bootstrap/3.2.0/css/bootstrap-theme.min.css">
+  <link rel="stylesheet" href="/css/common.css" />
+  <title>Scheduling Home</title>
 
 </head>
 <body>
 
 <section class='container'>
           <hgroup>
-            <h1>Welcome to your PHP application on OpenShift</h1>
+            <h1>BYU-Idaho Support Center Schedule</h1>
+            <!-- This needs to be edited to allow for any department being input there. -->
           </hgroup>
 
 
-        <div class="row">
+      <div class="row table-responsive" id="schedule calendar">
+         <table class="table">
+            <th>Monday<br />dummy date</th> <!-- need to change dummy date to be selective with the current date.-->
+            <th>Tuesday<br />dummy date</th> <!-- need to change dummy date to be selective with the current date.-->
+            <th>Wednesday<br />dummy date</th> <!-- need to change dummy date to be selective with the current date.-->
+            <th>Thursday<br />dummy date</th> <!-- need to change dummy date to be selective with the current date.-->
+            <th>Friday<br />dummy date</th> <!-- need to change dummy date to be selective with the current date.-->
+            <th>Saturday<br />dummy date</th> <!-- need to change dummy date to be selective with the current date.-->
+         </table>
+      </div>
+
+        <div class="row"> 
           <section class='col-xs-12 col-sm-6 col-md-6'>
             <section>
               <h2>Deploying code changes</h2>
@@ -72,5 +87,7 @@ $ git push</pre>
         </footer>
 </section>
 
+<script src="//ajax.googleapis.com/ajax/libs/jquery/1.11.1/jquery.min.js"></script
+<script src="https://maxcdn.bootstrapcdn.com/bootstrap/3.2.0/js/bootstrap.min.js"></script>
 </body>
 </html>
