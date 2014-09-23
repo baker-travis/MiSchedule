@@ -53,14 +53,6 @@
             <tr class="station">
                <th>Biddulph 1</th> <!-- This needs to be programmatically set -->
             </tr>
-            <tr class="employees">
-               <td>9am - 11am</td> <!-- This needs to be programmatically placed -->
-               <td>9am - 11am</td> <!-- This needs to be programmatically placed -->
-               <td>9am - 11am</td> <!-- This needs to be programmatically placed -->
-               <td>9am - 11am</td> <!-- This needs to be programmatically placed -->
-               <td>9am - 11am</td> <!-- This needs to be programmatically placed -->
-               <td>9am - 11am</td> <!-- This needs to be programmatically placed -->
-            </tr>
          </table>
       </div>
 
