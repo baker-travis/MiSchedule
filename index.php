@@ -20,12 +20,30 @@
 
       <div class="row table-responsive" id="schedule calendar">
          <table class="table">
-            <th>Monday<br />dummy date</th> <!-- need to change dummy date to be selective with the current date.-->
-            <th>Tuesday<br />dummy date</th> <!-- need to change dummy date to be selective with the current date.-->
-            <th>Wednesday<br />dummy date</th> <!-- need to change dummy date to be selective with the current date.-->
-            <th>Thursday<br />dummy date</th> <!-- need to change dummy date to be selective with the current date.-->
-            <th>Friday<br />dummy date</th> <!-- need to change dummy date to be selective with the current date.-->
-            <th>Saturday<br />dummy date</th> <!-- need to change dummy date to be selective with the current date.-->
+            <tr class="dates">
+               <th>Monday<br />dummy date</th> <!-- need to change dummy date to be selective with the current date.-->
+               <th>Tuesday<br />dummy date</th> <!-- need to change dummy date to be selective with the current date.-->
+               <th>Wednesday<br />dummy date</th> <!-- need to change dummy date to be selective with the current date.-->
+               <th>Thursday<br />dummy date</th> <!-- need to change dummy date to be selective with the current date.-->
+               <th>Friday<br />dummy date</th> <!-- need to change dummy date to be selective with the current date.-->
+               <th>Saturday<br />dummy date</th> <!-- need to change dummy date to be selective with the current date.-->
+            </tr>
+            <tr class="station">
+               <td>Biddulph 1</td> <!-- This needs to be programmatically placed -->
+               <td>Biddulph 1</td> <!-- This needs to be programmatically placed -->
+               <td>Biddulph 1</td> <!-- This needs to be programmatically placed -->
+               <td>Biddulph 1</td> <!-- This needs to be programmatically placed -->
+               <td>Biddulph 1</td> <!-- This needs to be programmatically placed -->
+               <td>Biddulph 1</td> <!-- This needs to be programmatically placed -->
+            </tr>
+            <tr class="employees">
+               <td>9am - 11am</td> <!-- This needs to be programmatically placed -->
+               <td>9am - 11am</td> <!-- This needs to be programmatically placed -->
+               <td>9am - 11am</td> <!-- This needs to be programmatically placed -->
+               <td>9am - 11am</td> <!-- This needs to be programmatically placed -->
+               <td>9am - 11am</td> <!-- This needs to be programmatically placed -->
+               <td>9am - 11am</td> <!-- This needs to be programmatically placed -->
+            </tr>
          </table>
       </div>
 
