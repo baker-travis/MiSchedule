@@ -15,7 +15,8 @@ PRIMARY KEY(PID),
 FirstName CHAR(15),
 LastName Char(15),
 Role Char(15),
-Email Char(35)
+Email Char(35),
+UNIQUE(Email)
 )";
 
 if (mysqli_query($con, $sql)) {
