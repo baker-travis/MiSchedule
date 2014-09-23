@@ -58,6 +58,23 @@
 
          <div class="row" id ="response">
          </div>
+         
+         
+         <section class="col-xs-12">
+            <form action="/db/addEmployee.php" method="post" role="form">
+            <div class="form-group">
+               <label for="firstName" >First Name: </label><input type="text" name="firstName" id="firstName" />
+            </div>
+            <div class="form-group">
+               <label for="lastName" >Last Name: </label><input type="text" name="lastName" id="lastName" />
+            </div>
+            <div class="form-group">
+               <label for="email">Email: </label><input type="email" class="form-control" name="email" id="email" />
+            </div>
+      
+            <button type="submit" class="btn btn-default">Submit</button>
+            </form>
+         </section>
 
         <div class="row"> 
           <section class='col-xs-12 col-sm-6 col-md-6'>
