@@ -181,3 +181,8 @@ line-height: 1.4;
   overflow: auto;
   font-family: Menlo,Monaco,"Liberation Mono",Consolas,monospace !important;
 }
+
+tr.times td {
+   border-right: 1px solid gray;
+
+}
