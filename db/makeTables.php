@@ -1,6 +1,6 @@
 <?php
 
-$dbAddress = getenv("OPENSHIFT_MYSQL_DB_HOST")
+$dbAddress = getenv("OPENSHIFT_MYSQL_DB_HOST");
 
 $con = mysqli_connect($dbAddress, "admin5kZjAYj", "tHK_D1kEKlhw", "scheduling");
 
@@ -19,7 +19,7 @@ Email Char(35)
 )";
 
 if (mysqli_query($con, $sql)) {
-   echo "Created table successfully"
+   echo "Created table successfully";
 } else {
    echo "Error creating table: " . mysqli_error($con);
 }
