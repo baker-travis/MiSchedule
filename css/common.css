@@ -134,7 +134,7 @@ h1 {
   border-bottom: 1px solid #fff;
   margin-bottom: .5em;
 }
-h1:after {
+h1.mainTitle:after {
   content: "";
   display: block;
   width: 100%;
