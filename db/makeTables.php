@@ -8,7 +8,7 @@ if (mysqli_connect_errno()) {
    echo "Failed to connect to MySQL: " . mysqli_connect_error();
 }
 
-$sql = "CREATE TABLE Employees
+$sql = "CREATE TABLE IF NOT EXISTS Employees
 (
 PID INT NOT NULL AUTO_INCREMENT,
 PRIMARY KEY(PID),
