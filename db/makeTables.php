@@ -36,6 +36,7 @@ $rolesSql = "CREATE TABLE IF NOT EXISTS Roles
 ";
 
 function doQuery($sql) {
+   global $con;
    if (mysqli_query($con, $sql)) {
       echo "Created table successfully";
    } else {
