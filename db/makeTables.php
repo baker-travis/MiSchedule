@@ -27,7 +27,7 @@ $stationsSql = "CREATE TABLE IF NOT EXISTS Stations
    PRIMARY KEY(SID)
 )";
 
-$rolesSql = "
+$rolesSql = "CREATE TABLE IF NOT EXISTS Roles
 (
    RID INT NOT NULL AUTO_INCREMENT,
    Name VARCHAR(25),
