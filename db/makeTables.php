@@ -20,7 +20,7 @@ UNIQUE(Email)
 )";
 */
 
-$sql = "DROP TABLE Employees"
+$sql = "DROP TABLE Employees";
 
 if (mysqli_query($con, $sql)) {
    echo "Created table successfully";
