@@ -7,25 +7,44 @@ $con = mysqli_connect($dbAddress, "admin5kZjAYj", "tHK_D1kEKlhw", "scheduling");
 if (mysqli_connect_errno()) {
    echo "Failed to connect to MySQL: " . mysqli_connect_error();
 }
-/*
-$sql = "CREATE TABLE IF NOT EXISTS Employees
+
+$employeeSql = "CREATE TABLE IF NOT EXISTS Employees
 (
-PID INT NOT NULL AUTO_INCREMENT,
-PRIMARY KEY(PID),
-FirstName CHAR(15),
-LastName Char(15),
-Role Char(15),
-Email Char(35),
-UNIQUE(Email)
+   PID INT NOT NULL AUTO_INCREMENT,
+   FirstName CHAR(15),
+   LastName CHAR(15),
+   Role INT,
+   Email VARCHAR(35),
+   PRIMARY KEY(PID),
+   UNIQUE(Email),
+   FOREIGN KEY (Role) REFERENCES Roles(RID)
 )";
-*/
 
-$sql = "DROP TABLE Employees";
+$stationsSql = "CREATE TABLE IF NOT EXISTS Stations
+(
+   SID INT NOT NULL AUTO_INCREMENT,
+   Name VARCHAR(25),
+   PRIMARY KEY(SID)
+)";
 
-if (mysqli_query($con, $sql)) {
-   echo "Created table successfully";
-} else {
-   echo "Error creating table: " . mysqli_error($con);
+$rolesSql = "
+(
+   RID INT NOT NULL AUTO_INCREMENT,
+   Name VARCHAR(25),
+   PRIMARY KEY(RID)
+)
+";
+
+function doQuery($sql) {
+   if (mysqli_query($con, $sql)) {
+      echo "Created table successfully";
+   } else {
+      echo "Error creating table: " . mysqli_error($con);
+   }
 }
+
+doQuery($rolesSql);
+doQuery($stationsSql);
+doQuery($employeeSql);
 
 ?>
