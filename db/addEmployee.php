@@ -1,41 +1,51 @@
-<!doctype html>
-<html lang="en">
-<head>
-  <meta charset="utf-8">
-  <meta http-equiv="X-UA-Compatible" content="IE=edge,chrome=1">
-  <link rel="stylesheet" href="https://maxcdn.bootstrapcdn.com/bootstrap/3.2.0/css/bootstrap.min.css" />
-  <link rel="stylesheet" href="https://maxcdn.bootstrapcdn.com/bootstrap/3.2.0/css/bootstrap-theme.min.css">
-  <link rel="stylesheet" href="/css/common.css" />
-  <title>Add Employee</title>
-
-</head>
-<body>
-
 <?php
-   $dbAddress = getenv("OPENSHIFT_MYSQL_DB_HOST");
-   
-   if (mysqli_connect_errno()) {
-      echo "Failed to connect to MySQL: " . mysqli_connect_error();
-   }
 
-   $con = mysqli_connect($dbAddress, "admin5kZjAYj", "tHK_D1kEKlhw", "scheduling");
-   
-   $firstName = mysqli_real_escape_string($con, $_POST["firstName"]);
-   $lastName = mysqli_real_escape_string($con, $_POST["lastName"]);
-   $email = mysqli_real_escape_string($con, $_POST["email"]);
-   
-   $sql = "INSERT INTO Employees (FirstName, LastName, Email)
-   VALUES ('$firstName', '$lastName', '$email')";
-   
-   if (!mysqli_query($con, $sql)) {
-      die("Error: " . mysqli_error($con));
-   }
-   
-   echo "1 record added"
+include "database_setup.php";
+
+$firstName = mysqli_real_escape_string($con, $_POST["firstName"]);
+$lastName = mysqli_real_escape_string($con, $_POST["lastName"]);
+$email = mysqli_real_escape_string($con, $_POST["email"]);
+
+$sql = "INSERT INTO Employees (FirstName, LastName, Email)
+VALUES ('$firstName', '$lastName', '$email')";
+
+if (!mysqli_query($con, $sql)) {
+    die("Error: " . mysqli_error($con));
+} else {
+    echo "1 record added";
+}
+
+function spamcheck($field) {
+  // Sanitize e-mail address
+  $field=filter_var($field, FILTER_SANITIZE_EMAIL);
+  // Validate e-mail address
+  if(filter_var($field, FILTER_VALIDATE_EMAIL)) {
+    return TRUE;
+  } else {
+    return FALSE;
+  }
+}
+
+if (isset($_POST["email"])) {
+    // Check if "from" email address is valid
+    $mailcheck = spamcheck($_POST["email"]);
+    if ($mailcheck==FALSE) {
+      echo "Invalid input";
+    } else {
+      $from = $_POST["from"]; // sender
+      $subject = "Sign up to view your schedule!";
+      $message = "You have been sent an invitation to view your schedule from the BYU-Idaho Support Center."; //This can now be html. Add links!
+      // message lines should not exceed 70 characters (PHP rule), so wrap it
+      $message = wordwrap($message, 70);
+        
+      $headers  = 'MIME-Version: 1.0' . "\r\n";
+      $headers .= 'Content-type: text/html; charset=iso-8859-1' . "\r\n";
+      $headers .= 'From: bak12023@byui.edu' . "\r\n";
+      // send mail
+      if (mail($email, $subject, $message, $headers)) {
+            echo "Email sent successfully\n";
+      }
+    }
+}
+
 ?>
-
-<script src="//ajax.googleapis.com/ajax/libs/jquery/1.11.1/jquery.min.js"></script
-<script src="https://maxcdn.bootstrapcdn.com/bootstrap/3.2.0/js/bootstrap.min.js"></script>
-
-</body>
-</html>
