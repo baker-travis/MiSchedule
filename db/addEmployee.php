@@ -6,6 +6,10 @@ $firstName = mysqli_real_escape_string($con, $_POST["firstName"]);
 $lastName = mysqli_real_escape_string($con, $_POST["lastName"]);
 $email = mysqli_real_escape_string($con, $_POST["email"]);
 
+if ($firstName == "" || $lastName == "" || $email == "") {
+	die("Must fill out all fields.");
+}
+
 $sql = "INSERT INTO Employees (FirstName, LastName, Email)
 VALUES ('$firstName', '$lastName', '$email')";
 

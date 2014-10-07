@@ -5,6 +5,11 @@
 */
 
 function manageUsers($scope, $http) {
+    
+    $scope.orderByField = "LastName";
+    
+    $scope.reverseSort = false;
+    
     $scope.loadData = function () {
         $http.get("/db/getUsers.php").success(function (data) {
             console.log(data);
@@ -45,10 +50,9 @@ function manageUsers($scope, $http) {
     }
     
     $scope.updateEmployee = function() {
-//        $.post("../db/updateEmployee.php", $("#editCurrentEmployee").serialize()).done(function (data) {
-//            console.log(data);
-//        });
-        // Add the updateEmployee.php script.
+        $.post("../db/updateEmployee.php", $("#editCurrentEmployee").serialize()).done(function (data) {
+            console.log(data);
+        });
         
         $scope.loadData();
     }

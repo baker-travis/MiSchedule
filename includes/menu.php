@@ -16,25 +16,31 @@
             <ul class="nav navbar-nav">
                 <li <?php if (htmlspecialchars($_SERVER["PHP_SELF"]) == "/index.php") echo "class='active'"; ?> ><a href="/index.php">Home</a>
                 </li>
-                <li <?php if (htmlspecialchars($_SERVER["PHP_SELF"]) == "/users/manage-users.php") echo "class='active'"; ?> ><a href="/users/manage-users.php">Manage Users</a>
-                </li>
             </ul>
             <form class="navbar-form navbar-right" action="">
                 <a href="manage-me.php" type="submit" class="btn btn-default"><span class="glyphicon glyphicon-user"></span></a>
             </form>
             <ul class="nav navbar-nav navbar-right">
+                <li>
+                    <span id="signinButton">
+                        <span
+                              style="vertical-align: middle;"
+                              class="g-signin"
+                              data-callback="signinCallback"
+                              data-clientid="1076527969182-71a5dorqdpehvluq76fv0lsh3s7qasea.apps.googleusercontent.com"
+                              data-cookiepolicy="single_host_origin"
+                              data-requestvisibleactions="http://schema.org/AddAction"
+                              data-scope="https://www.googleapis.com/auth/plus.login">
+                        </span>
+                    </span>
+                </li>
                 <li class="dropdown">
                     
-                    <a href="#" class="dropdown-toggle" data-toggle="dropdown">Dropdown <span class="caret"></span></a>
+                    <a href="#" class="dropdown-toggle" data-toggle="dropdown">Admin <span class="caret"></span></a>
                     <ul class="dropdown-menu" role="menu">
-                        <li><a href="#">Action</a>
+                        <li><a href="/users/manage-users.php">Manage Assets</a>
                         </li>
-                        <li><a href="#">Another action</a>
-                        </li>
-                        <li><a href="#">Something else here</a>
-                        </li>
-                        <li class="divider"></li>
-                        <li><a href="#">Separated link</a>
+                        <li><a href="/calendars/manage-calendar.php">Manage Schedule</a>
                         </li>
                     </ul>
                 </li>
