@@ -1,3 +1,4 @@
+<?php session_start() ?>
 <!doctype html>
 <html lang="en">
 
@@ -8,6 +9,13 @@
     <link rel="stylesheet" href="https://maxcdn.bootstrapcdn.com/bootstrap/3.2.0/css/bootstrap.min.css" />
     <link rel="stylesheet" href="https://maxcdn.bootstrapcdn.com/bootstrap/3.2.0/css/bootstrap-theme.min.css">
     <link rel="stylesheet" href="/css/common.css" />
+	
+<?php 
+	if (!isset($_SESSION['user'])) {
+		include '../includes/googleSignIn.php';
+	}
+?>
+	
     <title>Scheduling Home</title>
 
 </head>
@@ -73,6 +81,12 @@
             console.log(data);
         });
     </script>
+	
+	<?php
+		if (isset($_SESSION['user'])) {
+			echo "<script>$(\"#user-image\").html(\"" . $_SESSION['user']['result']['displayName'] . "&nbsp;<img src='" . $_SESSION['user']['image']['url'] . "' style='width: 35px; height: auto;' class='img-circle' />\");</script>";
+		}
+	?>
 
 </body>
 

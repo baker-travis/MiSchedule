@@ -26,7 +26,7 @@
 					</div>
                 </li>
                 <li class="dropdown">
-					<a href="#" id="user-image" class="dropdown-toggle" data-toggle="dropdown"><span class="glyphicon glyphicon-user"></span></a>
+					<a href="#" id="user-image" class="dropdown-toggle" data-toggle="dropdown" style="padding: 5px;"><span class="glyphicon glyphicon-user"></span></a>
                     <ul class="dropdown-menu" role="menu">
                         <li><a href="/users/manage-users.php">Manage Assets</a>
                         </li>

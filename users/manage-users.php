@@ -291,7 +291,7 @@
     
 	<?php
 		if (isset($_SESSION['user'])) {
-			echo "<script>$(\"#user-image\").html(\"<img src='" + $_SESSION['user']['image']['url']; + "' style='width: 35px; height: auto;' class='img-circle' />\");</script>";
+			echo "<script>$(\"#user-image\").html(\"" . $_SESSION['user']['result']['displayName'] . "&nbsp;<img src='" . $_SESSION['user']['image']['url'] . "' style='width: 35px; height: auto;' class='img-circle' />\");</script>";
 		}
 	?>
     

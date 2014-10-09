@@ -1,3 +1,4 @@
+<?php session_start() ?>
 <!doctype html>
 <html lang="en" ng-app = "">
 <head>
@@ -7,6 +8,13 @@
 <link rel="stylesheet" href="https://maxcdn.bootstrapcdn.com/bootstrap/3.2.0/css/bootstrap.min.css" />
 <link rel="stylesheet" href="https://maxcdn.bootstrapcdn.com/bootstrap/3.2.0/css/bootstrap-theme.min.css">
 <link rel="stylesheet" href="/css/common.css" />
+
+<?php 
+	if (!isset($_SESSION['user'])) {
+		include '../includes/googleSignIn.php';
+	}
+?>
+
 <title>Scheduling Home</title>
 
 </head>
@@ -36,36 +44,30 @@
 					<thead>
 						<tr>
 							<th>Station</th>
-							<th>7:00</th>
-							<th>7:30</th>
-							<th>8:00</th>
-							<th>8:30</th>
-							<th>9:00</th>
-							<th>9:30</th>
-							<th>10:00</th>
-							<th>10:30</th>
-							<th>11:00</th>
-							<th>11:30</th>
-							<th>12:00</th>
-							<th>12:30</th>
-							<th>1:00</th>
-							<th>1:30</th>
-							<th>2:00</th>
-							<th>2:30</th>
-							<th>3:00</th>
-							<th>3:30</th>
-							<th>4:00</th>
-							<th>4:30</th>
-							<th>5:00</th>
-							<th>5:30</th>
-							<th>6:00</th>
-							<th>6:30</th>
+							<th colspan="4">7:00</th>
+							<th colspan="4">8:00</th>
+							<th colspan="4">9:00</th>
+							<th colspan="4">10:00</th>
+							<th colspan="4">11:00</th>
+							<th colspan="4">12:00</th>
+							<th colspan="4">1:00</th>
+							<th colspan="4">2:00</th>
+							<th colspan="4">3:00</th>
+							<th colspan="4">4:00</th>
+							<th colspan="4">5:00</th>
+							<th colspan="4">6:00</th>
 						</tr>
 					</thead>
 					<tbody>
-						<tr ng-repeat="station in stations | orderBy:Name" ng-init="current-time = 7">
+						<tr ng-repeat="station in stations | orderBy:Name">
 							<th>{{station.Name}}</th>
 							<td ></td>
+							<td ></td>
+							<td ></td>
+							<td ></td>
+							<td ></td>
+							<td ></td>
+							<td ></td><td ></td><td ></td><td ></td><td ></td><td ></td><td ></td><td ></td><td ></td><td ></td><td ></td><td ></td><td ></td><td ></td><td ></td><td ></td><td ></td><td ></td><td ></td><td ></td><td ></td><td ></td><td ></td><td ></td><td ></td><td ></td><td ></td><td ></td><td ></td><td ></td><td ></td><td ></td><td ></td><td ></td><td ></td><td ></td><td ></td><td ></td><td ></td><td ></td><td ></td><td ></td>
 						</tr>
 					</tbody>
 				</table>
@@ -78,4 +80,11 @@
 <script src="/js/angular.min.js"></script> 
 <script src="/js/bootstrap.min.js"></script> 
 <script src="/js/manageUsers.php"></script>
+
+	<?php
+		if (isset($_SESSION['user'])) {
+			echo "<script>$(\"#user-image\").html(\"" . $_SESSION['user']['result']['displayName'] . "&nbsp;<img src='" . $_SESSION['user']['image']['url'] . "' style='width: 35px; height: auto;' class='img-circle' />\");</script>";
+		}
+	?>
+
 </body>
