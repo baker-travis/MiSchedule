@@ -47,7 +47,7 @@ if (isset($_POST["email"])) {
       $headers .= 'From: bak12023@byui.edu' . "\r\n";
       // send mail
       if (mail($email, $subject, $message, $headers)) {
-            echo "Email sent successfully\n";
+            echo "Email sent successfully to $email\n";
       }
     }
 }
