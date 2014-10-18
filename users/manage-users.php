@@ -29,7 +29,7 @@
                         $("#result").html("There is already an existing entry containing this email address.");
                     }
                 } else {
-                    $("#result").html("Submitted successfully");
+                    //$("#result").html("Submitted successfully");
                 }
             });
         }
@@ -45,7 +45,7 @@
                         $("#result").html("There is already an existing station named this.");
                     }
                 } else {
-                    $("#result").html("Submitted successfully");
+                    //$("#result").html("Submitted successfully");
                 }
             });
         }
@@ -61,7 +61,7 @@
                         $("#result").html("There is already an existing role named this.");
                     }
                 } else {
-                    $("#result").html("Submitted successfully");
+                    //$("#result").html("Submitted successfully");
                 }
             });
         }
@@ -90,6 +90,7 @@
                                 <th ng-click="orderByField = 'LastName'; reverseSort = !reverseSort">Employee Name <span ng-show="orderByField == 'LastName'"><span class="glyphicon glyphicon-chevron-down pull-right" ng-show="!reverseSort"></span><span class="glyphicon glyphicon-chevron-up pull-right" ng-show="reverseSort"></span></span></th>
                                 <th ng-click="orderByField = 'Name'; reverseSort = !reverseSort">Employee Role <span ng-show="orderByField == 'Name'"><span class="glyphicon glyphicon-chevron-down pull-right" ng-show="!reverseSort"></span><span class="glyphicon glyphicon-chevron-up pull-right" ng-show="reverseSort"></span></span></th>
                                 <th>Employee Email</th>
+								<th ng-click="orderByField = 'employee_rank'; reverseSort = !reverseSort">Rank <span ng-show="orderByField == 'employee_rank'"><span class="glyphicon glyphicon-chevron-down pull-right" ng-show="!reverseSort"></span><span class="glyphicon glyphicon-chevron-up pull-right" ng-show="reverseSort"></span></span></th>
                             </tr>
                         </thead>
                         <tbody>
@@ -97,6 +98,7 @@
                                 <td style="cursor: pointer" ng-click="openEmployee(employee)">{{ employee.FirstName + " " + employee.LastName }}</td>
                                 <td>{{ employee.Name }}</td>
                                 <td><a href="mailto:{{ employee.Email }}">{{employee.Email}}</a></td>
+								<td>{{ employee.employee_rank }}</td>
                             </tr>
                         </tbody>
                     </table>
@@ -164,6 +166,10 @@
                                 <select name="role" id="employeeRole">
                                     <option ng-repeat="role in roles | orderBy: 'Name'" value="{{role.RID}}">{{role.Name}}</option>
                                 </select>
+                            </div>
+							<div class="form-group">
+                                <label for="rank">Rank:</label>
+                                <input type="text" class="form-control" name="rank" id="employeeRank" />
                             </div>
                         </div>
                         <div class="modal-footer">

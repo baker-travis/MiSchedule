@@ -7,12 +7,17 @@ $firstName = mysqli_real_escape_string($con, $_POST["firstName"]);
 $lastName = mysqli_real_escape_string($con, $_POST["lastName"]);
 $email = mysqli_real_escape_string($con, $_POST["email"]);
 $role = mysqli_real_escape_string($con, $_POST["role"]);
+$rank = mysqli_real_escape_string($con, $_POST["rank"]);
 
 $sql = "UPDATE Employees
 SET FirstName='$firstName', LastName='$lastName', Email='$email'";
 
 if ($role != null) {
     $sql .= ", Role='$role'";
+}
+
+if ($rank != NULL) {
+	$sql .= ", employee_rank='$rank'";
 }
 
 $sql .= "WHERE PID='$PID'";

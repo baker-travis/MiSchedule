@@ -35,7 +35,7 @@
 							
 							console.log(profile);
 							
-							$("#user-image").html("<img src='" + profile.image.url + "' style='width: 35px; height: auto;' class='img-circle' />");
+							$("#user-image").html(profile.result.displayName + "&nbsp;<img src='" + profile.image.url + "' style='width: 35px; height: auto;' class='img-circle' />");
 							
 							$.post('/db/storeUser.php', profile);
 						});

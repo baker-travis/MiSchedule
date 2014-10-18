@@ -12,7 +12,7 @@
 	
 <?php 
 	if (!isset($_SESSION['user'])) {
-		include '../includes/googleSignIn.php';
+		include 'includes/googleSignIn.php';
 	}
 ?>
 	

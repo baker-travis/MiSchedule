@@ -2,13 +2,7 @@
 
 include "database_setup.php";
 
-//$getUsersSQL = "SELECT Employees.PID, Employees.FirstName, Employees.LastName, Roles.Name, Employees.Email FROM Employees
-//INNER JOIN Roles
-//ON Employees.Role = Roles.RID";
-
-$getUsersSQL = "SELECT * FROM Employees";
-
-$getUsersSQL = "SELECT Employees.PID, Employees.FirstName, Employees.LastName, Employees.Role, Roles.Name, Employees.Email FROM Employees
+$getUsersSQL = "SELECT Employees.PID, Employees.FirstName, Employees.LastName, Employees.Role, Roles.Name, Employees.Email, Employees.employee_rank FROM Employees
 LEFT JOIN Roles
 ON Employees.Role = Roles.RID";
 

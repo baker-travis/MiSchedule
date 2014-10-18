@@ -9,6 +9,8 @@ $employeeSql = "CREATE TABLE IF NOT EXISTS Employees
    LastName VARCHAR(15) NOT NULL,
    Role INT,
    Email VARCHAR(35) NOT NULL,
+   google_id INT,
+   employee_rank INT,
    PRIMARY KEY(PID),
    UNIQUE(Email),
    FOREIGN KEY (Role) REFERENCES Roles(RID) ON DELETE SET NULL ON UPDATE CASCADE
