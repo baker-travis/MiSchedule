@@ -29,7 +29,7 @@
 <?php include "../includes/menu.php" ?>
 <section class='container' ng-controller="manageUsers">
 	<hgroup>
-		<h1>Edit BYU-Idaho Support Center Employees' Schedules {{today}}</h1>
+		<h1>Edit BYU-Idaho Support Center Employees' Schedules - {{today.toDateString()}}</h1>
 		<!-- This needs to be edited to allow for any department being input there. --> 
 	</hgroup>
 	<ul class="nav nav-tabs" role="tablist">
@@ -87,6 +87,9 @@
                     <form id="editScheduleForm">
                         <div class="modal-body">
                             <input type="hidden" name="sid" id="sid" />
+							<input type="hidden" name="year" value="{{today.getFullYear()}}" />
+							<input type="hidden" name="day" value="{{today.getDate()}}" />
+							<input type="hidden" name="month" value="{{today.getMonth() + 1}}" />
                             <div class="form-group">
 								<label>Start Time:</label>
 								<select name="start-hour" id="start-hour">

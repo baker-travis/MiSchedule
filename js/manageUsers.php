@@ -17,11 +17,10 @@ function manageUsers($scope, $http) {
 		$_SESSION["today"] = time();
 	}
 	echo "\$scope.millis = " . $_SESSION["today"] . ";";
-	echo "console.log('" . $_SESSION["today"] . "');";
 	
 	
 	?>
-	$scope.today = Date($scope.millis);
+	$scope.today = new Date($scope.millis * 1000);
     
     $scope.orderByField = "LastName";
     
