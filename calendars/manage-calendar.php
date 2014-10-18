@@ -116,7 +116,7 @@
 							</div>
 							<div class="form-group">
 								<label>End Time:</label>
-								<select name="start-hour" id="end-hour">
+								<select name="end-hour" id="end-hour">
 									<option value="12">12</option>
 									<option value="1">1</option>
 									<option value="2">2</option>
@@ -130,13 +130,13 @@
 									<option value="10">10</option>
 									<option value="11">11</option>
 								</select>
-								<select name="start-min" id="end-min">
+								<select name="end-min" id="end-min">
 									<option value="0">00</option>
 									<option value="15">15</option>
 									<option value="30">30</option>
 									<option value="45">45</option>
 								</select>
-								<select name="start-am-pm" id="end-am-pm">
+								<select name="end-am-pm" id="end-am-pm">
 									<option value="am">am</option>
 									<option value="pm">pm</option>
 								</select>
@@ -150,7 +150,7 @@
                         </div>
                         <div class="modal-footer">
                             <button type="button" class="btn btn-default" data-dismiss="modal">Close</button>
-                            <button type="button" class="btn btn-primary" ng-click="insertSchedule()" data-dismiss="modal">Save changes</button>
+                            <button type="button" class="btn btn-primary" ng-click="insertSchedule()" data-dismiss="modal">Add Shift</button>
                         </div>
                     </form>
                 </div>
