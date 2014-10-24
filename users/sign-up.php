@@ -11,9 +11,9 @@
     <link rel="stylesheet" href="/css/common.css" />
 	
 <?php 
-	if (!isset($_SESSION['user'])) {
+	
 		include '../includes/googleSignIn.php';
-	}
+	
 ?>
 	
     <title>Scheduling Home</title>
@@ -37,8 +37,12 @@
 				$result = mysqli_query($con, $getUserSql);
 				
 				$theUser = mysqli_fetch_assoc($result);
-				
+				echo "<input type='hidden' id='pid' value='" . $_GET["pid"] . "' />";
+				echo "<script>console.log('google-id: " . $theUser["google_id"] . " pid=" . $_GET["pid"] . "');</script>";
 				echo $theUser["FirstName"] . " " . $theUser["LastName"];
+				if ($theUser["google_id"] != NULL) {
+					echo "<script>window.location.replace('/index.php');</script>";
+				}
 			}
 			
 			?>, Sign Up to View Your Schedule</h1>
@@ -46,7 +50,11 @@
         </hgroup>
 		
 		
-		
+		<div id="gSignInWrapper">
+			  <div id="signUp" class="">
+				
+			  </div>
+		</div>
 		
 	</section>
 	

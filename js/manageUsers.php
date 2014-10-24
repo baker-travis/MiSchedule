@@ -14,13 +14,13 @@ function manageUsers($scope, $http) {
 	<?php
 	
 	if (!isset($_SESSION["today"])) {
-		$_SESSION["today"] = time();
+		$_SESSION["today"] = time() * 1000;
 	}
 	echo "\$scope.millis = " . $_SESSION["today"] . ";";
 	
 	
 	?>
-	$scope.today = new Date($scope.millis * 1000);
+	$scope.today = new Date($scope.millis);
     
     $scope.orderByField = "LastName";
     
@@ -48,7 +48,7 @@ function manageUsers($scope, $http) {
             $scope.stations = data
         });
 		
-		$http.get("/db/getSchedule.php?").success(function (data) {
+		$http.get("/db/getSchedule.php").success(function (data) {
 			$scope.schedule = data;
 			formatDateData($scope.schedule);
 			console.log(data);
@@ -150,8 +150,7 @@ function manageUsers($scope, $http) {
 	
 	$scope.shouldDisplay = function(n) {
 		var val = false;
-		
-		if (n == 0) $scope.column = 0;
+		//if (n == 0) $scope.column = 0;
 		if ($scope.nameFound == true) {
 			val = true;
 			$scope.nameFound = false;
@@ -163,14 +162,15 @@ function manageUsers($scope, $http) {
 		return val;
 	}
 	
-	$scope.howManyColumns = function(station) {
+	$scope.howManyColumns = function(station, index) {
+		if (index == 0) $scope.column = 0;
 		var column = $scope.column;
 		var currentHour = Math.floor(7 + (column / 4));
 		var currentMin = column % 4 * 15;
 		var thisStation = new Array();
 		if (typeof $scope.schedule != 'undefined') {
 			thisStation = $.grep($scope.schedule, function(schedule) {
-				return (schedule.Station_ID == station.SID && schedule.startHour == currentHour && schedule.startMin == currentMin);
+				return (schedule.Station_ID == station.SID && schedule.startHour == currentHour && schedule.startMin == currentMin && schedule.year == $scope.today.getFullYear() && schedule.month == ($scope.today.getMonth() + 1) && schedule.day == $scope.today.getDate());
 			});
 		}
 		
@@ -182,14 +182,13 @@ function manageUsers($scope, $http) {
 	}
 	
 	$scope.whoIsWorking = function(station, index) {
-	
 		var column = index;
 		var currentHour = Math.floor(7 + (index / 4));
 		var currentMin = index % 4 * 15;
 		var thisStation = new Array();
 		if (typeof $scope.schedule != 'undefined') {
 			thisStation = $.grep($scope.schedule, function(schedule) {
-				return (schedule.Station_ID == station.SID && schedule.startHour == currentHour && schedule.startMin == currentMin);
+				return (schedule.Station_ID == station.SID && schedule.startHour == currentHour && schedule.startMin == currentMin && schedule.year == $scope.today.getFullYear() && schedule.month == ($scope.today.getMonth() + 1) && schedule.day == $scope.today.getDate());
 			});
 		}
 		
@@ -206,13 +205,13 @@ function manageUsers($scope, $http) {
 	}
 	
 	$scope.openScheduler = function(name, sid, index) {
-	
+		//if (index == 0) $scope.column = 0;
 		var currentHour = Math.floor(7 + (index / 4));
 		var currentMin = index % 4 * 15;
 		var thisStation = new Array();
 		if (typeof $scope.schedule != 'undefined') {
 			thisStation = $.grep($scope.schedule, function(schedule) {
-				return (schedule.Station_ID == sid && schedule.startHour == currentHour && schedule.startMin == currentMin);
+				return (schedule.Station_ID == sid && schedule.startHour == currentHour && schedule.startMin == currentMin && schedule.year == $scope.today.getFullYear() && schedule.month == ($scope.today.getMonth() + 1) && schedule.day == $scope.today.getDate());
 			});
 		}
 		
@@ -312,5 +311,23 @@ function manageUsers($scope, $http) {
 		$("#stationName").html(name);
 		$("#editSchedule").modal();
 	}
+	
+	$scope.changeDate = function(dayOfWeek) {
+		var days = 0;
+		if (dayOfWeek == 7 || dayOfWeek == -7) {
+			days = dayOfWeek;
+		} else {
+			days = dayOfWeek - $scope.today.getDay();
+		}
+		var newDate = new Date($scope.today);
+		newDate.setDate($scope.today.getDate() + days);
+		
+		var newMillis = newDate.getTime();
+		
+		$http.get("/db/changeMillis.php?newMillis=" + newMillis).success(function (data) {
+			location.reload();
+		});
+	}
+	
     $scope.loadData();
 }

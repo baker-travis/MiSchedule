@@ -1,3 +1,4 @@
+<?php session_start(); ?>
 <nav class="navbar navbar-default" role="navigation">
     <div class="container-fluid">
         <!-- Brand and toggle get grouped for better mobile display -->
@@ -28,10 +29,22 @@
                 <li class="dropdown">
 					<a href="#" id="user-image" class="dropdown-toggle" data-toggle="dropdown" style="padding: 5px;"><span class="glyphicon glyphicon-user"></span></a>
                     <ul class="dropdown-menu" role="menu">
-                        <li><a href="/users/manage-users.php">Manage Assets</a>
-                        </li>
-                        <li><a href="/calendars/manage-calendar.php">Manage Schedule</a>
-                        </li>
+						<?php
+							//This checks to see if the employee is an admin and has access to these pages.
+							if (isset($_SESSION["employeeInfo"]) && $_SESSION["employeeInfo"]["Name"] == "admin") {
+								echo "<script>console.log('" . $_SESSION["employeeInfo"]["Name"] . "');</script>";
+							
+								echo "<li><a href='/users/manage-users.php'>Manage Assets</a>
+								</li>
+								<li><a href='/calendars/manage-calendar.php'>Manage Schedule</a>
+								</li>";
+							}
+						?>
+						<?php
+							if (isset($_SESSION['user'])) {
+								echo "<li style='cursor: pointer;' onclick='signMeOut();'><a>Sign Out</a></li>";	
+							}
+						?>
                     </ul>
                 </li>
             </ul>

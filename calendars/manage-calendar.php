@@ -10,9 +10,7 @@
 <link rel="stylesheet" href="/css/common.css" />
 
 <?php 
-	if (!isset($_SESSION['user'])) {
 		include '../includes/googleSignIn.php';
-	}
 ?>
 
 <title>Scheduling Home</title>
@@ -33,14 +31,14 @@
 		<!-- This needs to be edited to allow for any department being input there. --> 
 	</hgroup>
 	<ul class="nav nav-tabs" role="tablist">
-		<li><a role="tab" data-toggle="tab">Prev</a></li>
-	    <li class="active"><a role="tab" data-toggle="tab">Mon {{getDate(1)}}</a></li>
-	    <li><a role="tab" data-toggle="tab">Tue {{getDate(2)}}</a></li>
-	    <li><a role="tab" data-toggle="tab">Wed {{getDate(3)}}</a></li>
-	    <li><a role="tab" data-toggle="tab">Thu {{getDate(4)}}</a></li>
-	    <li><a role="tab" data-toggle="tab">Fri {{getDate(5)}}</a></li>
-	    <li><a role="tab" data-toggle="tab">Sat {{getDate(6)}}</a></li>
-		<li><a role="tab" data-toggle="tab">Next</a></li>
+		<li ng-click="changeDate(-7)"><a role="tab" data-toggle="tab">Prev</a></li>
+	    <li class="{{(today.getDay() == 1) ? 'active':'' }}"><a role="tab" data-toggle="tab" ng-click="changeDate(1)">Mon</a></li>
+	    <li class="{{(today.getDay() == 2) ? 'active':'' }}"><a role="tab" data-toggle="tab" ng-click="changeDate(2)">Tue</a></li>
+	    <li class="{{(today.getDay() == 3) ? 'active':'' }}"><a role="tab" data-toggle="tab" ng-click="changeDate(3)">Wed</a></li>
+	    <li class="{{(today.getDay() == 4) ? 'active':'' }}"><a role="tab" data-toggle="tab" ng-click="changeDate(4)">Thu</a></li>
+	    <li class="{{(today.getDay() == 5) ? 'active':'' }}"><a role="tab" data-toggle="tab" ng-click="changeDate(5)">Fri</a></li>
+	    <li class="{{(today.getDay() == 6) ? 'active':'' }}"><a role="tab" data-toggle="tab" ng-click="changeDate(6)">Sat</a></li>
+		<li ng-click="changeDate(7)"><a role="tab" data-toggle="tab">Next</a></li>
 	</ul>
 	<div class="tab-content">
 	<div class="row tab-pane active" id="mon">
@@ -67,7 +65,7 @@
 					<tbody>
 						<tr ng-repeat="station in stations | orderBy:Name">
 							<th>{{station.Name}}</th>
-							<td ng-show="shouldDisplay($index)" ng-repeat="t in getTimes(48) track by $index" colspan="{{howManyColumns(station)}}" ng-click="openScheduler(station.Name, station.SID, $index)">{{ whoIsWorking(station, $index) }}</td>
+							<td ng-show="shouldDisplay($index)" ng-repeat="t in getTimes(48) track by $index" colspan="{{howManyColumns(station, $index)}}" ng-click="openScheduler(station.Name, station.SID, $index)">{{ whoIsWorking(station, $index) }}</td>
 						</tr>
 					</tbody>
 				</table>
@@ -170,6 +168,9 @@
                     <form id="editEmployeeScheduleForm">
                         <div class="modal-body">
                             <input type="hidden" name="schedule-id" id="schedule-id" />
+							<input type="hidden" name="year" id="year" value="{{today.getFullYear()}}" />
+							<input type="hidden" name="month" id="month" value="{{today.getMonth() + 1}}" />
+							<input type="hidden" name="day" id="day" value="{{today.getDate()}}" />
                             <div class="form-group">
 								<label>Start Time:</label>
 								<select name="employee-start-hour" id="employee-start-hour">

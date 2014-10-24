@@ -11,9 +11,9 @@
     <link rel="stylesheet" href="/css/common.css" />
 	
 <?php 
-	if (!isset($_SESSION['user'])) {
+	
 		include 'includes/googleSignIn.php';
-	}
+	
 ?>
 	
     <title>Scheduling Home</title>
