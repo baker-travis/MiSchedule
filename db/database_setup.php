@@ -12,9 +12,17 @@ if (PHP_OS == "Darwin") {
         echo "Error: " . mysqli_error($con);
     }
 } else {
-    $dbAddress = getenv("OPENSHIFT_MYSQL_DB_HOST");
+    /* $dbAddress = getenv("OPENSHIFT_MYSQL_DB_HOST");
+	$dbUser = "admin5kZjAYj";
+	$dbPass = "tHK_D1kEKlhw";
+	$dbName = "scheduling"; */
+	
+	$dbAddress = "db549585601.db.1and1.com";
+	$dbUser = "dbo549585601";
+	$dbPass = "meldrum77";
+	$dbName = "db549585601";
 
-    $con = mysqli_connect($dbAddress, "admin5kZjAYj", "tHK_D1kEKlhw", "scheduling");
+    $con = mysqli_connect($dbAddress, $dbUser, $dbPass, $dbName);
 }
 
 if (mysqli_connect_errno()) {

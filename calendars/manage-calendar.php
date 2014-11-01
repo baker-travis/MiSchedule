@@ -9,7 +9,7 @@
 <link rel="stylesheet" href="https://maxcdn.bootstrapcdn.com/bootstrap/3.2.0/css/bootstrap-theme.min.css">
 <link rel="stylesheet" href="/css/common.css" />
 
-<?php 
+<?php
 		include '../includes/googleSignIn.php';
 ?>
 
@@ -17,18 +17,18 @@
 
 <style>
 	.nav-tabs > li {
-		cursor: pointer;	
+		cursor: pointer;
 	}
 </style>
 
 </head>
 
-<body>
+<body ng-cloak>
 <?php include "../includes/menu.php" ?>
 <section class='container' ng-controller="manageUsers">
 	<hgroup>
 		<h1>Edit BYU-Idaho Support Center Employees' Schedules - {{today.toDateString()}}</h1>
-		<!-- This needs to be edited to allow for any department being input there. --> 
+		<!-- This needs to be edited to allow for any department being input there. -->
 	</hgroup>
 	<ul class="nav nav-tabs" role="tablist">
 		<li ng-click="changeDate(-7)"><a role="tab" data-toggle="tab">Prev</a></li>
@@ -63,9 +63,9 @@
 						</tr>
 					</thead>
 					<tbody>
-						<tr ng-repeat="station in stations | orderBy:Name">
+						<tr ng-repeat="station in stations | orderBy:'Name'">
 							<th>{{station.Name}}</th>
-							<td ng-show="shouldDisplay($index)" ng-repeat="t in getTimes(48) track by $index" colspan="{{howManyColumns(station, $index)}}" ng-click="openScheduler(station.Name, station.SID, $index)">{{ whoIsWorking(station, $index) }}</td>
+							<td ng-show="shouldDisplay($index)" ng-repeat="t in getTimes(48) track by $index" colspan="{{howManyColumns(station, $index)}}" class="id{{getEmployeeID(station, $index)}}" ng-click="openScheduler(station.Name, station.SID, $index)">{{ whoIsWorking(station, $index) }}</td>
 						</tr>
 					</tbody>
 				</table>
@@ -73,7 +73,7 @@
 		</div>
 	</div>
 	</div>
-	
+
 	<!-- Modal -->
         <div class="modal fade" id="editSchedule" tabindex="-1" role="dialog" aria-labelledby="myModalLabel" aria-hidden="true">
             <div class="modal-dialog">
@@ -157,7 +157,7 @@
                 </div>
             </div>
         </div>
-		
+
 		<div class="modal fade" id="editEmployeeSchedule" tabindex="-1" role="dialog" aria-labelledby="myModalLabel" aria-hidden="true">
             <div class="modal-dialog">
                 <div class="modal-content">
@@ -241,11 +241,11 @@
                 </div>
             </div>
         </div>
-	
+
 </section>
-<script src="//ajax.googleapis.com/ajax/libs/jquery/2.1.1/jquery.min.js"></script> 
-<script src="/js/angular.min.js"></script> 
-<script src="/js/bootstrap.min.js"></script> 
+<script src="//ajax.googleapis.com/ajax/libs/jquery/2.1.1/jquery.min.js"></script>
+<script src="/js/angular.min.js"></script>
+<script src="/js/bootstrap.min.js"></script>
 <script src="/js/manageUsers.php"></script>
 
 	<?php

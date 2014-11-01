@@ -31,6 +31,8 @@
                     <ul class="dropdown-menu" role="menu">
 						<?php
 							//This checks to see if the employee is an admin and has access to these pages.
+							echo "<script>console.log('" . $_SESSION["employeeInfo"]["Name"] . "');</script>";
+							if (isset($_SESSION["employeeInfo"])) { echo "<script>console.log('" . $_SESSION["employeeInfo"]["Name"] . "');</script>";}
 							if (isset($_SESSION["employeeInfo"]) && $_SESSION["employeeInfo"]["Name"] == "admin") {
 								echo "<script>console.log('" . $_SESSION["employeeInfo"]["Name"] . "');</script>";
 							

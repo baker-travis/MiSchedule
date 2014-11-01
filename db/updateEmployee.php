@@ -12,7 +12,7 @@ $rank = mysqli_real_escape_string($con, $_POST["rank"]);
 $sql = "UPDATE Employees
 SET FirstName='$firstName', LastName='$lastName', Email='$email'";
 
-if ($role != null) {
+if ($role != NULL) {
     $sql .= ", Role='$role'";
 }
 

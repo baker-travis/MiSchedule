@@ -67,7 +67,7 @@
 
 </head>
 
-<body>
+<body ng-cloak>
     
     <?php include "../includes/menu.php" ?>
     
@@ -272,7 +272,10 @@
                                 <input type="email" class="form-control" name="email" id="email" />
                             </div>
                             <div class="form-group">
-                                <label for="role" </div>
+								<label for="myRole">Role:</label>
+								<select name="myRole" id="theEmployeeRole">
+                                    <option ng-repeat="role in roles | orderBy: 'Name'" value="{{role.RID}}">{{role.Name}}</option>
+                                </select>
                             </div>
                             <div class="modal-footer">
                                 <button type="button" class="btn btn-default" data-dismiss="modal">Close</button>

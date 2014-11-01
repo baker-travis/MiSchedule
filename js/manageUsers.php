@@ -1,5 +1,5 @@
-<?php 
-header('Content-type: text/javascript'); 
+<?php
+header('Content-type: text/javascript');
 session_start();
 ?>
 
@@ -12,26 +12,26 @@ session_start();
 function manageUsers($scope, $http) {
 
 	<?php
-	
+
 	if (!isset($_SESSION["today"])) {
 		$_SESSION["today"] = time() * 1000;
 	}
 	echo "\$scope.millis = " . $_SESSION["today"] . ";";
-	
-	
 	?>
 	$scope.today = new Date($scope.millis);
-    
+
     $scope.orderByField = "LastName";
-    
+
     $scope.reverseSort = false;
-	
+
+	$scope.currentEmployeeID = null;
+
 	$scope.column = 0;
-	
+
 	$scope.nameFound = false;
-    
+
 	$scope.currentStation = null;
-	
+
     $scope.loadData = function () {
         $http.get("/db/getUsers.php").success(function (data) {
             console.log(data);
@@ -47,14 +47,14 @@ function manageUsers($scope, $http) {
             console.log(data);
             $scope.stations = data
         });
-		
+
 		$http.get("/db/getSchedule.php").success(function (data) {
 			$scope.schedule = data;
 			formatDateData($scope.schedule);
 			console.log(data);
 		});
     }
-	
+
 	function formatDateData(data) {
 		for (var i = 0; i < data.length; i++) {
 			var twoParts = data[i].Start_Date_Time.split(" ");
@@ -72,7 +72,7 @@ function manageUsers($scope, $http) {
 			}
 		}
 	}
-    
+
     $scope.openEmployee = function(employee) {
         $("#editEmployeeName").html("Edit " + employee.FirstName + " " + employee.LastName);
         $("#pid").val(employee.PID);
@@ -80,74 +80,74 @@ function manageUsers($scope, $http) {
         $("#employeeLastName").val(employee.LastName);
         $("#employeeEmail").val(employee.Email);
 		$("#employeeRank").val(employee.employee_rank);
-        
+
         if (employee.Role != null) {
             $("#employeeRole").val(employee.Role);
         }
-        
+
         $("#editEmployee").modal();
     }
-	
+
 	$scope.insertSchedule = function() {
 		$.post("../db/insertSchedule.php", $("#editScheduleForm").serialize()).done(function (data) {
             console.log(data);
         });
-        
+
         $scope.loadData();
 	}
-    
+
     $scope.deleteEmployee = function() {
         $.post("../db/deleteEmployee.php", $("#editCurrentEmployee").serialize()).done(function (data) {
             console.log(data);
         });
-        
+
         $scope.loadData();
     }
-    
+
     $scope.updateEmployee = function() {
         $.post("../db/updateEmployee.php", $("#editCurrentEmployee").serialize()).done(function (data) {
             console.log(data);
         });
-        
+
         $scope.loadData();
     }
-    
+
     $scope.deleteStation = function(station) {
         $.post("../db/deleteStation.php", {sid: station.SID}).done(function (data) {
             console.log(data);
         });
-        
+
         $scope.loadData();
     }
-    
+
     $scope.deleteRole = function(role) {
         $.post("../db/deleteRole.php", {rid: role.RID}).done(function (data) {
             console.log(data);
         });
-        
+
         $scope.loadData();
     }
-	
+
 	$scope.deleteShift = function() {
 		$.post("../db/deleteSchedule.php", $("#editEmployeeScheduleForm").serialize()).done(function (data) {
 			console.log(data);
 		});
-		
+
 		$scope.loadData();
 	}
-	
+
 	$scope.updateShift = function() {
 		$.post("../db/updateSchedule.php", $("#editEmployeeScheduleForm").serialize()).done(function (data) {
 			console.log(data);
 		});
-		
+
 		$scope.loadData();
 	}
-	
+
 	$scope.getTimes = function(n) {
 		return new Array(n);
 	}
-	
+
 	$scope.shouldDisplay = function(n) {
 		var val = false;
 		//if (n == 0) $scope.column = 0;
@@ -158,11 +158,13 @@ function manageUsers($scope, $http) {
 			val = true;
 			$scope.column++;
 		}
-		
+
 		return val;
 	}
-	
+
 	$scope.howManyColumns = function(station, index) {
+		$scope.nameOfWorking = "";
+		$scope.currentEmployeeID = "";
 		if (index == 0) $scope.column = 0;
 		var column = $scope.column;
 		var currentHour = Math.floor(7 + (column / 4));
@@ -173,39 +175,32 @@ function manageUsers($scope, $http) {
 				return (schedule.Station_ID == station.SID && schedule.startHour == currentHour && schedule.startMin == currentMin && schedule.year == $scope.today.getFullYear() && schedule.month == ($scope.today.getMonth() + 1) && schedule.day == $scope.today.getDate());
 			});
 		}
-		
+
 		if (typeof thisStation[0] != 'undefined') {
-			return thisStation[0].spanTime;
-		}
-		
-		return 1;
-	}
-	
-	$scope.whoIsWorking = function(station, index) {
-		var column = index;
-		var currentHour = Math.floor(7 + (index / 4));
-		var currentMin = index % 4 * 15;
-		var thisStation = new Array();
-		if (typeof $scope.schedule != 'undefined') {
-			thisStation = $.grep($scope.schedule, function(schedule) {
-				return (schedule.Station_ID == station.SID && schedule.startHour == currentHour && schedule.startMin == currentMin && schedule.year == $scope.today.getFullYear() && schedule.month == ($scope.today.getMonth() + 1) && schedule.day == $scope.today.getDate());
-			});
-		}
-		
-		if (typeof thisStation[0] != 'undefined') {
+			// This is a test
 			$scope.column += thisStation[0].spanTime;
 			var theEmployee = $.grep($scope.users, function(user) {
 				return user.PID == thisStation[0].Employee_ID;
 			});
 			$scope.nameFound = true;
-			return theEmployee[0].FirstName + " " + theEmployee[0].LastName;
+			$scope.nameOfWorking = theEmployee[0].FirstName + " " + theEmployee[0].LastName;
+			$scope.currentEmployeeID = theEmployee[0].PID
+			//This is the end of the test
+			return thisStation[0].spanTime;
 		}
-		
-		return "";
+
+		return 1;
 	}
-	
+
+	$scope.getEmployeeID = function(station, index) {
+		return $scope.currentEmployeeID;
+	}
+
+	$scope.whoIsWorking = function(station, index) {
+		return $scope.nameOfWorking;
+	}
+
 	$scope.openScheduler = function(name, sid, index) {
-		//if (index == 0) $scope.column = 0;
 		var currentHour = Math.floor(7 + (index / 4));
 		var currentMin = index % 4 * 15;
 		var thisStation = new Array();
@@ -214,29 +209,29 @@ function manageUsers($scope, $http) {
 				return (schedule.Station_ID == sid && schedule.startHour == currentHour && schedule.startMin == currentMin && schedule.year == $scope.today.getFullYear() && schedule.month == ($scope.today.getMonth() + 1) && schedule.day == $scope.today.getDate());
 			});
 		}
-		
+
 		if (typeof thisStation[0] != 'undefined') {
 			$scope.column += thisStation[0].spanTime;
 			var theEmployee = $.grep($scope.users, function(user) {
 				return user.PID == thisStation[0].Employee_ID;
 			});
-			
+
 			theEmployee[0].PID;
 			thisStation[0].Schedule_ID;
-			
+
 			$("#employee-id").val(theEmployee[0].PID);
 			$("#schedule-id").val(thisStation[0].Schedule_ID);
 			$("#employee-stationName").html(name);
-			
+
 			var hour = thisStation[0].startHour;
-			
+
 			var min = thisStation[0].startMin * 1;
-			
+
 			var spanTime = thisStation[0].spanTime;
-			
+
 			spanTime += (hour * 4);
 			spanTime += (min / 15);
-			
+
 			var endHour = Math.floor(spanTime / 4);
 			var endMin = (spanTime % 4) * 15;
 			var amPm = null;
@@ -246,33 +241,33 @@ function manageUsers($scope, $http) {
 			} else {
 				amPm = "am";
 			}
-			
+
 			if (hour != 12) {
 				hour %= 12;
 			}
-			
+
 			if (Math.floor(endHour / 12) > 0) {
 				endAmPm = "pm";
 			} else {
 				endAmPm = "am";
 			}
-			
+
 			if (endHour != 12) {
 				endHour %= 12;
 			}
-			
+
 			$("#employee-start-hour").val(hour);
 			$("#employee-start-min").val(min);
 			$("#employee-start-am-pm").val(amPm);
-			
+
 			$("#employee-end-hour").val(endHour);
 			$("#employee-end-min").val(endMin);
 			$("#employee-end-am-pm").val(endAmPm);
-			
+
 			$("#editEmployeeSchedule").modal();
 			return;
 		}
-		
+
 		var hour = Math.floor(7 + (index / 4));
 		var endHour = hour + 2;
 		var min = index % 4 * 15;
@@ -283,35 +278,35 @@ function manageUsers($scope, $http) {
 		} else {
 			amPm = "am";
 		}
-		
+
 		if (hour != 12) {
 			hour %= 12;
 		}
-		
+
 		if (Math.floor(endHour / 12) > 0) {
 			endAmPm = "pm";
 		} else {
 			endAmPm = "am";
 		}
-		
+
 		if (endHour != 12) {
 			endHour %= 12;
 		}
-		
+
 		$("#start-hour").val(hour);
 		$("#start-min").val(min);
 		$("#start-am-pm").val(amPm);
-		
+
 		$("#end-hour").val(endHour);
 		$("#end-min").val(min);
 		$("#end-am-pm").val(endAmPm);
-		
+
 		$("#sid").val(sid);
-		
+
 		$("#stationName").html(name);
 		$("#editSchedule").modal();
 	}
-	
+
 	$scope.changeDate = function(dayOfWeek) {
 		var days = 0;
 		if (dayOfWeek == 7 || dayOfWeek == -7) {
@@ -321,13 +316,13 @@ function manageUsers($scope, $http) {
 		}
 		var newDate = new Date($scope.today);
 		newDate.setDate($scope.today.getDate() + days);
-		
+
 		var newMillis = newDate.getTime();
-		
+
 		$http.get("/db/changeMillis.php?newMillis=" + newMillis).success(function (data) {
 			location.reload();
 		});
 	}
-	
+
     $scope.loadData();
 }

@@ -20,7 +20,7 @@
 
 </head>
 
-<body>
+<body ng-cloak>
 
     <?php include "../includes/menu.php" ?>
 	
